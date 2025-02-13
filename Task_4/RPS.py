@@ -6,28 +6,20 @@ class RockPaperScissors:
     def __init__(self, master):
         self.master = master
         self.master.title("Rock, Paper, Scissors")
-        self.master.geometry("400x400")  # Adjusted window size
+        self.master.geometry("400x400")  
         self.master.resizable(False, False)
         self.setup_style()
-        
-        # Initialize scores
         self.wins = 0
         self.losses = 0
         self.ties = 0
-        
         self.create_widgets()
         self.setup_layout()
-
     def setup_style(self):
         self.style = ttk.Style()
         self.style.theme_use('clam')
-        
-        # Configure styles
         self.style.configure('TFrame', background='#f0f0f0')
         self.style.configure('TLabel', background='#f0f0f0', font=('Segoe UI', 12))
         self.style.configure('TButton', font=('Segoe UI', 12), foreground='black')
-        
-        # Custom button colors
         self.style.map('Rock.TButton',
                       background=[('active', '#FF5733'), ('!disabled', '#FF0000')])
         self.style.map('Paper.TButton',
@@ -38,15 +30,11 @@ class RockPaperScissors:
     def create_widgets(self):
         self.main_frame = ttk.Frame(self.master, padding=20)
         self.main_frame.pack(fill='both', expand=True)
-
-        # Title Label
         self.title_label = ttk.Label(
             self.main_frame,
             text="Rock, Paper, Scissors",
             font=('Segoe UI', 20, 'bold')
         )
-
-        # Score Label
         self.score_var = tk.StringVar(value="Wins: 0 | Losses: 0 | Ties: 0")
         self.score_label = ttk.Label(
             self.main_frame,
@@ -54,8 +42,6 @@ class RockPaperScissors:
             font=('Segoe UI', 12),
             background='#f0f0f0'
         )
-
-        # Result Label
         self.result_var = tk.StringVar(value="Make your choice!")
         self.result_label = ttk.Label(
             self.main_frame,
@@ -64,8 +50,6 @@ class RockPaperScissors:
             wraplength=350,
             justify='center'
         )
-
-        # Player and Computer Choice Labels
         self.player_choice_var = tk.StringVar(value="Your Choice: ❓")
         self.computer_choice_var = tk.StringVar(value="Computer's Choice: ❓")
         
@@ -81,8 +65,6 @@ class RockPaperScissors:
             font=('Segoe UI', 12),
             background='#f0f0f0'
         )
-
-        # Buttons for Rock, Paper, Scissors
         self.rock_btn = ttk.Button(
             self.main_frame,
             text="🪨 Rock",
@@ -104,8 +86,6 @@ class RockPaperScissors:
             style='Scissors.TButton',
             width=10
         )
-
-        # Reset Button
         self.reset_btn = ttk.Button(
             self.main_frame,
             text="Reset Game",
@@ -128,21 +108,17 @@ class RockPaperScissors:
         
         self.reset_btn.grid(row=6, column=0, columnspan=3, pady=(20, 0), sticky='ew')
 
-        # Configure grid weights
         for i in range(3):
             self.main_frame.columnconfigure(i, weight=1)
 
     def play(self, player_choice):
-        # Computer's random choice
         choices = ["rock", "paper", "scissors"]
         computer_choice = random.choice(choices)
 
-        # Update choice labels with emojis
         emoji_map = {"rock": "🪨", "paper": "📄", "scissors": "✂️"}
         self.player_choice_var.set(f"Your Choice: {emoji_map[player_choice]}")
         self.computer_choice_var.set(f"Computer's Choice: {emoji_map[computer_choice]}")
 
-        # Determine the winner and update scores
         if player_choice == computer_choice:
             result = "It's a tie!"
             self.ties += 1
@@ -154,15 +130,9 @@ class RockPaperScissors:
         else:
             result = "You lose!"
             self.losses += 1
-
-        # Update the result label
         self.result_var.set(f"Result: {result}")
-
-        # Update the score label
         self.score_var.set(f"Wins: {self.wins} | Losses: {self.losses} | Ties: {self.ties}")
-
     def reset_game(self):
-        # Reset scores and labels
         self.wins = 0
         self.losses = 0
         self.ties = 0
